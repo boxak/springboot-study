@@ -1,9 +1,6 @@
 package com.study.springbootstudy;
 
-import com.study.springbootstudy.domain.Board;
-import com.study.springbootstudy.domain.Member;
-import com.study.springbootstudy.domain.Student;
-import com.study.springbootstudy.domain.UserItem;
+import com.study.springbootstudy.domain.*;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -145,4 +142,39 @@ public class LombokTests {
         }
     }
 
+    @Test
+    public void testData_requiredArgsConstructor() {
+        BoardData boardData = new BoardData(1);
+        System.out.println(boardData);
+    }
+
+    @Test
+    public void testData_GetterSetter() {
+        BoardData boardData = new BoardData(1);
+        boardData.setTitle("게시판제목");
+        System.out.println(boardData.getTitle());
+    }
+
+    @Test
+    public void testBoardBuilder() {
+        BoardBuilder boardBuilder = BoardBuilder.builder()
+                .boardNo(1)
+                .title("title1")
+                .content("content1")
+                .writer("writer1")
+                .regDate(LocalDateTime.now())
+                .build();
+
+        System.out.println(boardBuilder);
+    }
+
+    @Test
+    public void testMemberBuilder() {
+        MemberBuilder member = MemberBuilder.builder()
+                .userId("userId1")
+                .password("password1")
+                .build();
+
+        System.out.println(member);
+    }
 }
