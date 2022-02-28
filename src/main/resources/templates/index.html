@@ -21,6 +21,7 @@
         <button id="registerBtn">REGISTER</button>
         <button id="deleteBtn">DELETE</button>
         <button id="modifyBtn">MODIFY</button>
+        <button id="patchBtn">MODIFY(patch)</button>
     </div>
 </body>
 
@@ -134,8 +135,40 @@
                 }
             });
         });
+
+        $("#patchBtn").on("click", function() {
+            var boardNo = $("#boardNo");
+            var title = $("#title");
+            var content = $("#content");
+            var writer = $("#writer");
+
+            var boardNoVal = boardNo.val();
+            var titleVal = title.val();
+            var contentVal = content.val();
+            var writerVal = writer.val();
+
+            var boardObject = {
+                boardNo : boardNoVal,
+                title : titleVal,
+                content : contentVal,
+                writer : writerVal
+            };
+
+            $.ajax({
+               type : "PATCH",
+               url : "/boards/" + boardNoVal,
+               data : JSON.stringify(boardObject),
+               contentType : "application/json; charset=UTF-8",
+               success : function(result) {
+                   console.log("result : " + result);
+                   alert(result);
+               },
+                beforeSend : function (xhr){
+                    xhr.setRequestHeader(header, token);
+                },
+            });
+        });
     });
-    alert("script!");
 </script>
 
 </html>

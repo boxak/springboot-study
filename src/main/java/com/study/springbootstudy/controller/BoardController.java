@@ -1,6 +1,6 @@
 package com.study.springbootstudy.controller;
 
-import com.study.springbootstudy.domain.test.TestBoard;
+import com.study.springbootstudy.domain.Board;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +15,12 @@ import java.util.List;
 @RequestMapping("/boards")
 public class BoardController {
     @GetMapping
-    public ResponseEntity<List<TestBoard>> list() {
+    public ResponseEntity<List<Board>> list() {
         log.info("list");
 
-        List<TestBoard> boardList = new ArrayList<>();
+        List<Board> boardList = new ArrayList<>();
 
-        TestBoard board = new TestBoard();
+        Board board = new Board();
 
         board.setBoardNo(1);
         board.setTitle("향수");
@@ -30,7 +30,7 @@ public class BoardController {
 
         boardList.add(board);
 
-        board = new TestBoard();
+        board = new Board();
 
         board.setBoardNo(2);
         board.setTitle("첫 마음");
@@ -40,13 +40,13 @@ public class BoardController {
 
         boardList.add(board);
 
-        ResponseEntity<List<TestBoard>> entity = new ResponseEntity<>(boardList, HttpStatus.OK);
+        ResponseEntity<List<Board>> entity = new ResponseEntity<>(boardList, HttpStatus.OK);
 
         return entity;
     }
 
     @PostMapping
-    public ResponseEntity<String> register(@RequestBody TestBoard board) {
+    public ResponseEntity<String> register(@RequestBody Board board) {
         log.info("register");
 
         ResponseEntity<String> entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
@@ -54,17 +54,17 @@ public class BoardController {
     }
 
     @GetMapping("/{boardNo}")
-    public ResponseEntity<TestBoard> read(@PathVariable("boardNo") int boardNo) {
+    public ResponseEntity<Board> read(@PathVariable("boardNo") int boardNo) {
         log.info("read");
 
-        TestBoard board = new TestBoard();
+        Board board = new Board();
         board.setBoardNo(1);
         board.setTitle("향수");
         board.setContent("넓은 벌 동쪽 끝으로");
         board.setWriter("hongkd");
         board.setRegDate(LocalDateTime.now());
 
-        ResponseEntity<TestBoard> entity = new ResponseEntity<>(board, HttpStatus.OK);
+        ResponseEntity<Board> entity = new ResponseEntity<>(board, HttpStatus.OK);
         return entity;
     }
 
@@ -77,9 +77,18 @@ public class BoardController {
 
     @PutMapping("/{boardNo}")
     public ResponseEntity<String> modify(@PathVariable("boardNo") int boardNo,
-                                         @RequestBody TestBoard board) {
+                                         @RequestBody Board board) {
         log.info("modify");
         ResponseEntity<String> entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+        return entity;
+    }
+
+    @PatchMapping("/{boardNo}")
+    public ResponseEntity<String> modifyByPatch(@PathVariable("boardNo") int boardNo,
+                                                @RequestBody Board board) {
+        log.info("modifyByPatch");
+        ResponseEntity<String> entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+
         return entity;
     }
 }
