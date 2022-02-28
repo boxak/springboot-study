@@ -2,10 +2,16 @@ package com.study.springbootstudy.controller;
 
 import com.study.springbootstudy.domain.Member;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -34,4 +40,99 @@ public class MemberController {
         return member;
     }
 
+    @GetMapping("/register04")
+    public List<Member> register04() {
+        log.info("register04");
+
+        Member member1 = new Member();
+
+        member1.setUserId("userId1");
+        member1.setPassword("1234");
+        member1.setDateOfBirth(LocalDate.of(1995,2,4));
+
+        Member member2 = new Member();
+
+        member2.setUserId("userId2");
+        member2.setPassword("1234");
+        member2.setDateOfBirth(LocalDate.of(1996,3,4));
+
+        List<Member> list = new ArrayList<>();
+        list.add(member1);
+        list.add(member2);
+
+        return list;
+    }
+
+    @GetMapping("/register05")
+    public Map<String, Member> register05() {
+        log.info("register05");
+
+        Member member1 = new Member();
+
+        member1.setUserId("userId1");
+        member1.setPassword("1234");
+        member1.setDateOfBirth(LocalDate.of(1995,2,4));
+
+        Member member2 = new Member();
+
+        member2.setUserId("userId2");
+        member2.setPassword("1234");
+        member2.setDateOfBirth(LocalDate.of(1996,3,4));
+
+        Map<String, Member> map = new HashMap<>();
+
+        map.put("key1", member1);
+        map.put("key2", member2);
+
+        return map;
+    }
+
+    @GetMapping("/register06")
+    public ResponseEntity<Void> register06() {
+        log.info("register06");
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @GetMapping("/register07")
+    public ResponseEntity<String> register07() {
+        log.info("register07");
+
+        return new ResponseEntity<>("HELLO", HttpStatus.OK);
+    }
+
+    @GetMapping("/register08")
+    public ResponseEntity<Member> register08() {
+        log.info("register08");
+
+        Member member1 = new Member();
+
+        member1.setUserId("userId1");
+        member1.setPassword("1234");
+        member1.setDateOfBirth(LocalDate.of(1995,2,4));
+
+        return new ResponseEntity<>(member1, HttpStatus.OK);
+    }
+
+    @GetMapping("/register09")
+    public ResponseEntity<List<Member>> register09() {
+        log.info("register09");
+
+        Member member1 = new Member();
+
+        member1.setUserId("userId1");
+        member1.setPassword("1234");
+        member1.setDateOfBirth(LocalDate.of(1995,2,4));
+
+        Member member2 = new Member();
+
+        member2.setUserId("userId2");
+        member2.setPassword("1234");
+        member2.setDateOfBirth(LocalDate.of(1996,3,4));
+
+        List<Member> list = new ArrayList<>();
+        list.add(member1);
+        list.add(member2);
+
+        return new ResponseEntity<List<Member>>(list, HttpStatus.OK);
+    }
 }
