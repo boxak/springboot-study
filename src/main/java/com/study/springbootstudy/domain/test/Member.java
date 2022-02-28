@@ -1,4 +1,4 @@
-package com.study.springbootstudy.domain;
+package com.study.springbootstudy.domain.test;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
