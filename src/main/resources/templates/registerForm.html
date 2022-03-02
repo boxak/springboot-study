@@ -1,0 +1,178 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Home</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<body>
+
+<h1>Register Form</h1>
+<form>
+    userId : <input type="text" name="userId" value="hongkd" id="userId"><br>
+    password : <input type="text" name="password" value="1234" id="password"><br>
+</form>
+
+<button id="registerBtn01">register01</button>
+<button id="registerBtn02">register02</button>
+<button id="registerBtn03">register03</button>
+<button id="registerBtn04">register04</button>
+<button id="registerBtn05">register05</button>
+<button id="registerBtn06">register06</button>
+</body>
+
+<script>
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
+    $(document).ready(function() {
+       $("#registerBtn01").on("click", function() {
+          $.get("/register/hongkd", function(result) {
+             console.log("result : " + result);
+             alert(result);
+          });
+       });
+
+       $("#registerBtn02").on("click", function() {
+          var userId = $("#userId");
+          var password = $("#password");
+
+          var userIdVal = userId.val();
+          var passwordVal = password.val();
+
+          $.ajax({
+             type : "POST",
+             url : "/register/" + userIdVal + "/" + passwordVal,
+              contentType : "application/json; charset=UTF-8",
+              success: function(result) {
+                 console.log("result : " + result);
+                 alert(result);
+              },
+              beforeSend : function (xhr){
+                  xhr.setRequestHeader(header, token);
+              }
+          });
+       });
+
+       $("#registerBtn03").on("click", function() {
+
+           var userIdVal = $("#userId").val();
+           var passwordVal = $("#password").val();
+
+           var obj = {
+               userId : userIdVal,
+               password : passwordVal
+           }
+
+          $.ajax({
+              type : "POST",
+              url : "/register03?userId=" + userIdVal,
+              contentType : "application/json; charset=UTF-8",
+              success : function(result) {
+                  console.log("result : " + result);
+                  alert(result);
+              },
+              beforeSend : function (xhr){
+                  xhr.setRequestHeader(header, token);
+              }
+          });
+       });
+
+       $("#registerBtn04").on("click", function(){
+          var userObjectArray = [
+              {
+                  userId : "name01",
+                  password: "pw01"
+              },
+              {
+                  userId : "name02",
+                  password : "pwo2"
+              }
+          ];
+
+          $.ajax({
+             type : "POST",
+             url : "register04",
+             data : JSON.stringify(userObjectArray),
+             contentType : "application/json; charset=UTF-8",
+             success : function(result) {
+                 console.log("result : " + result);
+                 alert(result);
+             },
+              beforeSend : function (xhr){
+                  xhr.setRequestHeader(header, token);
+              }
+          });
+       });
+
+        $("#registerBtn05").on("click", function(){
+            var userIdVal = $("#userId").val();
+            var passwordVal = $("#password").val();
+
+            var userObject = {
+                userId : userIdVal,
+                password : passwordVal,
+                address : {
+                    postCode : "010908",
+                    location : "seoul"
+                }
+            };
+
+            $.ajax({
+                type : "POST",
+                url : "/register05",
+                data : JSON.stringify(userObject),
+                contentType : "application/json; charset=UTF-8",
+                success : function(result) {
+                    console.log("result : " + result);
+                    alert(result);
+                },
+                beforeSend : function (xhr){
+                    xhr.setRequestHeader(header, token);
+                }
+            });
+        });
+
+        $("#registerBtn06").on("click", function(){
+            var userIdVal = $("#userId").val();
+            var passwordVal = $("#password").val();
+
+            var userObject = {
+                userId : userIdVal,
+                password : passwordVal,
+                cardList : [
+                    {
+                        no : "23456",
+                        validMonth : "2024-09"
+                    },
+                    {
+                        no : "12342",
+                        validMonth: "2025-07"
+                    }
+                ]
+            };
+
+            $.ajax({
+                type : "POST",
+                url : "/register06",
+                data : JSON.stringify(userObject),
+                contentType : "application/json; charset=UTF-8",
+                success : function(result) {
+                    console.log("result : " + result);
+                    alert(result);
+                },
+                beforeSend : function (xhr){
+                    xhr.setRequestHeader(header, token);
+                }
+            });
+        });
+    });
+
+</script>
+
+</html>

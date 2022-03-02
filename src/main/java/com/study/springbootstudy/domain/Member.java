@@ -13,6 +13,7 @@ public class Member {
     private String userId;
     private String password;
     private int coin;
+    private Address address;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;

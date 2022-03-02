@@ -13,6 +13,6 @@ import java.time.YearMonth;
 public class Card {
     private String no;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM")
     private YearMonth validMonth;
 }
