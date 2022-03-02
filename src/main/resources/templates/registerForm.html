@@ -13,8 +13,13 @@
 
 <h1>Register Form</h1>
 <form>
-    userId : <input type="text" name="userId" value="hongkd" id="userId"><br>
-    password : <input type="text" name="password" value="1234" id="password"><br>
+    userId : <input type="text" name="userId" value="" id="userId"><br>
+    password : <input type="text" name="password" value="" id="password"><br>
+    name : <input type="text" name="userName" value="" id="userName"><br>
+    email : <input type="text" name="email" value="" id="email"><br>
+    gender :
+    <input id="gender1" name="gender" type="radio" value="male" /><label for="gender1">Male</label><br>
+    <input id="gender2" name="gender" type="radio" value="female" /><label for="gender2">Female</label><br>
 </form>
 
 <button id="registerBtn01">register01</button>
@@ -23,6 +28,7 @@
 <button id="registerBtn04">register04</button>
 <button id="registerBtn05">register05</button>
 <button id="registerBtn06">register06</button>
+<button id="registerBtn">registerBtn</button>
 
 <h3>Ajax File Upload</h3>
 <div>
@@ -199,6 +205,42 @@
               },
                beforeSend : function(xhr) {
                    xhr.setRequestHeader(header, token);
+               }
+           });
+
+        });
+
+        $("#registerBtn").on("click", function() {
+           var userIdVal = $("#userId").val();
+           var passwordVal = $("#password").val();
+           var userNameVal = $("#userName").val();
+           var emailVal = $("#email").val();
+           var genderVal = $('input[name="gender"]:checked').val();
+
+           var userObject = {
+               userId : userIdVal,
+               password : passwordVal,
+               userName : userNameVal,
+               email : emailVal,
+               gender : genderVal
+           };
+
+           $.ajax({
+              type : "POST",
+              url : "/users",
+              data : JSON.stringify(userObject),
+              contentType : "application/json; charset=UTF-8",
+              success : function(result) {
+                  console.log("result : " + result);
+                  alert(result);
+              },
+               error: function (xhr, status, error) {
+                   alert("code : " + xhr.status + "\n"
+                       + "message : " + xhr.responseText + "\n"
+                       + "error : " + error);
+               },
+               beforeSend : function(xhr) {
+                  xhr.setRequestHeader(header, token);
                }
            });
 

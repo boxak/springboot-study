@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -304,4 +306,23 @@ public class MemberController {
         return entity;
     }
 
+    @PostMapping(path = "/users", produces = "text/plain;charset=utf-8")
+    public ResponseEntity<String> register(@Validated @RequestBody Member member,
+                                           BindingResult result) {
+        log.info("register");
+
+        if (result.hasErrors()) {
+            ResponseEntity<String> entity = new ResponseEntity<>(result.toString(), HttpStatus.BAD_REQUEST);
+            return entity;
+        }
+
+        log.info("member.getUserId() = " + member.getUserId());
+        log.info("member.getPassword() = " + member.getPassword());
+        log.info("member.getUserName() = " + member.getUserName());
+        log.info("member.getEmail() = " + member.getEmail());
+        log.info("member.getGender() = " + member.getGender());
+
+        ResponseEntity<String> entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+        return entity;
+    }
 }
