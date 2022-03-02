@@ -346,6 +346,28 @@ public class MemberController {
         log.info("member.getEmail() = " + member.getEmail());
         log.info("member.getGender() = " + member.getGender());
 
+        Address address = member.getAddress();
+
+        if (address != null) {
+            log.info("address != null address.getPostCode() = " + address.getPostCode());
+            log.info("address != null address.getLocation() = " + address.getLocation());
+        } else {
+            log.info("address == null");
+        }
+
+        List<Card> cardList = member.getCardList();
+
+        if (cardList != null) {
+            log.info("cardList != null and ==" + cardList.size());
+
+            for (Card card : cardList) {
+                log.info("card.getNo() = " + card.getNo());
+                log.info("card.getValidMonth() = " + card.getValidMonth());
+            }
+        } else {
+            log.info("cardList == null");
+        }
+
         ResponseEntity<String> entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
         return entity;
     }
