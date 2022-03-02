@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -312,6 +314,28 @@ public class MemberController {
         log.info("register");
 
         if (result.hasErrors()) {
+
+            List<ObjectError> allErrors = result.getAllErrors();
+            List<ObjectError> globalErrors = result.getGlobalErrors();
+            List<FieldError> fieldErrors = result.getFieldErrors();
+
+            log.info("allErrors.size() = " + allErrors.size());
+            log.info("globalErrors.size() = " + globalErrors.size());
+            log.info("fieldErrors.size() = " + fieldErrors.size());
+
+            for (ObjectError objectError : allErrors) {
+                log.info("allError = " + objectError);
+            }
+
+            for (ObjectError objectError : globalErrors) {
+                log.info("allError = " + objectError);
+            }
+
+            for (FieldError fieldError : fieldErrors) {
+                log.info("allError = " + fieldError);
+                log.info("fieldError.getDefaultMessage() = " + fieldError.getDefaultMessage());
+            }
+
             ResponseEntity<String> entity = new ResponseEntity<>(result.toString(), HttpStatus.BAD_REQUEST);
             return entity;
         }

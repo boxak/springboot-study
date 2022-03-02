@@ -3,7 +3,9 @@ package com.study.springbootstudy.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
@@ -15,6 +17,7 @@ public class Member {
 
     @NotBlank
     private String userId;
+    @NotBlank
     private String password;
 
     @NotBlank
@@ -22,11 +25,13 @@ public class Member {
     private String userName;
     private Address address;
 
+    @Past
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
 
     private List<Card> cardList;
 
+    @Email
     private String email;
     private String gender;
 }

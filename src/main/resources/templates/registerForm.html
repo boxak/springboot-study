@@ -17,6 +17,7 @@
     password : <input type="text" name="password" value="" id="password"><br>
     name : <input type="text" name="userName" value="" id="userName"><br>
     email : <input type="text" name="email" value="" id="email"><br>
+    생년월일 : <input type="text" name="dateOfBirth" value="" id="dateOfBirth"><br>
     gender :
     <input id="gender1" name="gender" type="radio" value="male" /><label for="gender1">Male</label><br>
     <input id="gender2" name="gender" type="radio" value="female" /><label for="gender2">Female</label><br>
@@ -215,6 +216,7 @@
            var passwordVal = $("#password").val();
            var userNameVal = $("#userName").val();
            var emailVal = $("#email").val();
+           var dateVal = $("#dateOfBirth").val();
            var genderVal = $('input[name="gender"]:checked').val();
 
            var userObject = {
@@ -222,6 +224,7 @@
                password : passwordVal,
                userName : userNameVal,
                email : emailVal,
+               dateOfBirth : dateVal,
                gender : genderVal
            };
 
