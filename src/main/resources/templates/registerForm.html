@@ -23,6 +23,11 @@
 <button id="registerBtn04">register04</button>
 <button id="registerBtn05">register05</button>
 <button id="registerBtn06">register06</button>
+
+<h3>Ajax File Upload</h3>
+<div>
+    <input type="file" id="inputFile">
+</div>
 </body>
 
 <script>
@@ -171,6 +176,34 @@
                 }
             });
         });
+
+        $("#inputFile").on("change", function(event){
+           console.log("change");
+
+           var files = event.target.files;
+           var file = files[0];
+
+           console.log(file);
+
+           var formData = new FormData();
+           formData.append("file", file);
+
+           $.ajax({
+              type : "POST",
+              url : "/upload",
+              data : formData,
+              processData : false,
+              contentType : false,
+              success : function(data) {
+                  alert(data);
+              },
+               beforeSend : function(xhr) {
+                   xhr.setRequestHeader(header, token);
+               }
+           });
+
+        });
+
     });
 
 </script>

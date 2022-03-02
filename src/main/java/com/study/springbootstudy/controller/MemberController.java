@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -292,4 +293,15 @@ public class MemberController {
         ResponseEntity<String> entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
         return entity;
     }
+
+    @PostMapping(path = "/upload", produces = "text/plain;charset=UTF-8")
+    public ResponseEntity<String> upload(MultipartFile file) throws Exception {
+        String originalFilename = file.getOriginalFilename();
+
+        log.info("originalName : " + originalFilename);
+
+        ResponseEntity<String> entity = new ResponseEntity<>("UPLOAD SUCCESS " + originalFilename, HttpStatus.OK);
+        return entity;
+    }
+
 }
