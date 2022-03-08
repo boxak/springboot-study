@@ -347,7 +347,7 @@ public class MemberController {
         log.info("member.getGender() = " + member.getGender());
 
         Address address = member.getAddress();
-//
+
         if (address != null) {
             log.info("address != null address.getPostCode() = " + address.getPostCode());
             log.info("address != null address.getLocation() = " + address.getLocation());
