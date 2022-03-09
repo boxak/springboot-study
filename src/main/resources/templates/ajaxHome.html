@@ -23,6 +23,7 @@
     <button id="registerBtn10">register10</button>
     <button id="registerBtn1101">register1101</button>
     <button id="registerBtn1102">register1102</button>
+    <button id="welcomeBtn">READ</button>
 </div>
 
 </body>
@@ -96,6 +97,10 @@
 
         $("#registerBtn1102").on("click", function() {
             $.ajax(makeObj("register1102"));
+        });
+
+        $("#welcomeBtn").on("click", function (){
+           $.ajax(makeObj("/greetings/welcome"))
         });
     });
 
